@@ -17,6 +17,13 @@ class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Add the + button programmatically to ensure it appears
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didTapNewTaskButton)
+        )
+
         // Hide top cell separator
         tableView.tableHeaderView = UIView()
 
@@ -41,7 +48,7 @@ class TaskListViewController: UIViewController {
     }
 
     // When the "+" button is tapped, perform the segue with id, "ComposeSegue".
-    @IBAction func didTapNewTaskButton(_ sender: Any) {
+    @objc @IBAction func didTapNewTaskButton(_ sender: Any) {
         performSegue(withIdentifier: "ComposeSegue", sender: nil)
     }
 
