@@ -9,27 +9,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
         
-        // Create the storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        // Create Tasks View Controller and Navigation Controller
-        let tasksViewController = storyboard.instantiateViewController(withIdentifier: "BYZ-38-t0r") as! TaskListViewController
-        let tasksNavController = UINavigationController(rootViewController: tasksViewController)
-        tasksNavController.tabBarItem = UITabBarItem(
-            title: "Tasks",
-            image: UIImage(systemName: "checklist"),
+        // Create view controllers programmatically (no storyboard needed)
+        let habitsViewController = HabitListViewController()
+        let habitsNavController = UINavigationController(rootViewController: habitsViewController)
+        habitsNavController.tabBarItem = UITabBarItem(
+            title: "Habits",
+            image: UIImage(systemName: "figure.walk.circle"),
             tag: 0
         )
         
-        // Create Calendar View Controller and Navigation Controller
-        let calendarViewController = storyboard.instantiateViewController(withIdentifier: "JYA-x1-l0b") as! CalendarViewController
+        let calendarViewController = CalendarViewController()
         let calendarNavController = UINavigationController(rootViewController: calendarViewController)
         calendarNavController.tabBarItem = UITabBarItem(
             title: "Calendar",
@@ -37,11 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tag: 1
         )
         
-        // Create tab bar controller
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [tasksNavController, calendarNavController]
+        tabBarController.viewControllers = [habitsNavController, calendarNavController]
         
-        // Set as root view controller
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
@@ -50,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:configurationForConnectingSceneSession` instead).
+        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
